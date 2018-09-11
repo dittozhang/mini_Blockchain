@@ -1,0 +1,24 @@
+# add transaction
+    url http: // 127.0.0.1: 5000/transactions/new - X POST - H "Content-Type: application/json" - d '{"sender": "d4ee26eee15148ee92c6cd394edd974e", "recipient": "someone-other-address", "amount": 5}'
+
+    # windows 需改為
+    curl http: // 127.0.0.1: 5000/transactions/new - X POST - H "Content-Type: application/json" - d "{\"sender\": \"d4ee26eee15148ee92c6cd394edd974e\", \"recipient\": \"someone-other-address\", \"amount\": 5}"
+
+# register node
+    curl http: // 127.0.0.1: 5000/nodes/register - X POST - H "Content-Type: application/json" - d '{"nodes": ["http://127.0.0.1:5001"]}'
+
+    # windows 需改為
+    curl http: // 127.0.0.1: 5000/nodes/register - X POST - H "Content-Type: application/json" - d "{\"nodes\": [\"http://127.0.0.1:5001\"]}"
+
+# syn blockchain
+    # 先建立新的節點
+    python web.py - H 127.0.0.1 - P 5001
+
+    # 觀看目前的狀況
+    http: // 127.0.0.1: 5001/chain
+
+    # 註冊已存在節點
+    curl http: // 127.0.0.1: 5001/nodes/register - X POST - H "Content-Type: application/json" - d "{\"nodes\": [\"http://127.0.0.1:5000\"]}"
+
+    # 同步
+    http: // 127.0.0.1: 5001/nodes/resolve
