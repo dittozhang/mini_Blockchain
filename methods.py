@@ -15,6 +15,3 @@ def showJson(data):
 
 def getAndShow(index):
     print(showJson(get(index).text))
-
-
-def
