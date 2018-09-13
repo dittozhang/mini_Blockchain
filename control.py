@@ -3,10 +3,10 @@ import requests
 import os
 
 
-def pingHosts(hosts_list):    # test all host online or not
+def pingHosts(hosts):    # test all host online or not
     url = 'http://127.0.0.1:'
     print('HOST:')
-    for host in hosts_list:
+    for host in hosts:
         if requests.get(url+host+'/chain').status_code\
                 == requests.codes.ok:
             print('host: {0:<5}\tonline'.format(host))
@@ -14,22 +14,49 @@ def pingHosts(hosts_list):    # test all host online or not
             print('host: {0:<5}\toffline'.format(host))
 
 
-def host_view(hosts_list):
-    for hosts_index in range(len(hosts_list)):
-        print('{}. {}'.format(hosts_index, hosts_list[hosts_index]))
+def hosts_View(hosts):
+    print('###########')
+    for index in range(len(hosts)):
+        print('# {}. {} #'.format(index, hosts[index]))
+    print('###########')
 
 
-def fuction_view():
-    function = ['chain', 'mine', 'register', 'resolve']
+def function_View():
+    functions = ['Chain', 'Mine', 'Register', 'Resolve', 'Transaction']
+    for index in range(len(functions)):
+        print('{}. {} '.format(index, functions[index]))
 
 
-def addHost(hosts_list):
-    host_name = str(len(hosts_list)+5000)
+def function_Select(select):
+    return {
+        0: Host_chain(),
+    }
+
+
+def addHost(hosts):
+    host_name = str(len(hosts)+5000)
     os.system('start web.py -P ' + host_name)
     return host_name
 
 
-hosts_list = []
+hosts = []
+nickname = ['Alice', 'Ben', 'Carl', 'David', 'Eva', 'Frank', 'Gina']
+move = -1
+
 
 while True:
-    pass
+    os.system('cls')
+    if len(hosts) == 0:
+        if str.upper(input('no server for now, do you want to buid one?\nY/N\n'))\
+                == 'Y':
+            num = int(input('how much?\n'))
+            for n in range(num):
+                hosts.append(addHost(hosts))  # add new host
+            continue
+        else:
+            break
+
+    hosts_View(hosts)
+    function_View()
+    move = int(input('Choose function:'))
+    host = int(input('Which host:'))
