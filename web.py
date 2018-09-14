@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 # Generate a globally unique address for this node
 node_identifier = str(uuid4()).replace('-', '')
+print('name = ' + node_identifier)
 
 # Instantiate the Blockchain
 blockchain = Blockchain()
